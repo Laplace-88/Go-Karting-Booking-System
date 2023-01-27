@@ -59,3 +59,4 @@ SmartSelect, all you need to make the right choice.</p>
 * As a user, I want to be able to compare the technical
   details of different products or different variants of the same product.
 * As a user, I want to see reviews for a product from other users.
+* As a user, I want to write reviews for a product I bought.
