@@ -251,7 +251,7 @@ public class TakeInput {
 
     public void getLTouchScreen() {
         char selection;
-        Boolean valid = false;
+        boolean valid = false;
         do {
             System.out.println("Would you prefer a touch display? (Y/N)");
             selection = Character.toLowerCase(sc.next().charAt(0));
@@ -264,7 +264,7 @@ public class TakeInput {
 
     public void getLFingerprintReader() {
         char selection;
-        Boolean valid = false;
+        boolean valid = false;
         do {
             System.out.println("Would you prefer a Fingerprint Reader? (Y/N)");
             selection = Character.toLowerCase(sc.next().charAt(0));
@@ -277,7 +277,7 @@ public class TakeInput {
 
     public void getLBacklitKeyboard() {
         char selection;
-        Boolean valid = false;
+        boolean valid = false;
         do {
             System.out.println("Would you prefer a Fingerprint Reader? (Y/N)");
             selection = Character.toLowerCase(sc.next().charAt(0));
@@ -290,7 +290,7 @@ public class TakeInput {
 
     public void getLThinLight() {
         char selection;
-        Boolean valid = false;
+        boolean valid = false;
         do {
             System.out.println("Would you prefer a Thin & Light Laptop? (Y/N)");
             selection = Character.toLowerCase(sc.next().charAt(0));
