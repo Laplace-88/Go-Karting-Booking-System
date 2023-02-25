@@ -115,11 +115,10 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 7 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedBrands.add(BRANDS[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
@@ -132,14 +131,14 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 7 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedScreenSize.add(SCREEN_SIZE[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
+    @SuppressWarnings("methodlength")
     public void getLProcessor() {
         char selection;
         do {
@@ -160,11 +159,10 @@ public class TakeInput {
         while (selection != 48) {
             if (selection > 122 || selection < 97) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = Character.toLowerCase(sc.next().charAt(0));
             } else {
                 selectedProcessor.add(PROCESSOR[selection - 97]);
-                selection = Character.toLowerCase(sc.next().charAt(0));
             }
+            selection = Character.toLowerCase(sc.next().charAt(0));
         }
     }
 
@@ -177,11 +175,10 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 3 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedOS.add(OS[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
@@ -196,11 +193,10 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 6 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedGraphicCard.add(GRAPHIC_CARD[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
@@ -213,11 +209,10 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 8 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedRAM.add(RAM[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
@@ -230,11 +225,10 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 5 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedStorage.add(STORAGE[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
@@ -248,11 +242,10 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 9 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedDisplay.add(DISPLAY[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
@@ -266,11 +259,7 @@ public class TakeInput {
                 valid = true;
             }
         } while (!valid);
-        if (selection == 121) {
-            this.touchscreen = true;
-        } else {
-            this.touchscreen = false;
-        }
+        this.touchscreen = selection == 121;
     }
 
     public void getLFingerprintReader() {
@@ -283,11 +272,7 @@ public class TakeInput {
                 valid = true;
             }
         } while (!valid);
-        if (selection == 121) {
-            this.fingerprintReader = true;
-        } else {
-            this.fingerprintReader = false;
-        }
+        this.fingerprintReader = selection == 121;
     }
 
     public void getLBacklitKeyboard() {
@@ -300,11 +285,7 @@ public class TakeInput {
                 valid = true;
             }
         } while (!valid);
-        if (selection == 121) {
-            this.backlitKeyboard = true;
-        } else {
-            this.backlitKeyboard = false;
-        }
+        this.backlitKeyboard = selection == 121;
     }
 
     public void getLThinLight() {
@@ -317,11 +298,7 @@ public class TakeInput {
                 valid = true;
             }
         } while (!valid);
-        if (selection == 121) {
-            this.thinlight = true;
-        } else {
-            this.thinlight = false;
-        }
+        this.thinlight = selection == 121;
     }
 
     public void getLWarranty() {
@@ -333,11 +310,10 @@ public class TakeInput {
         while (selection != 0) {
             if (selection > 7 || selection < 0) {
                 System.out.println("Invalid Selection. Please retry.");
-                selection = sc.nextInt();
             } else {
                 selectedWarranty.add(WARRANTY[selection - 1]);
-                selection = sc.nextInt();
             }
+            selection = sc.nextInt();
         }
     }
 
