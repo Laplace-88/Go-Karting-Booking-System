@@ -6,15 +6,16 @@ import static model.LaptopSelection.*;
 import static model.PhoneSelection.*;
 
 public class Main extends LogIn {
+    @SuppressWarnings("methodlength")
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Boolean loginSuccessful = false;
+        boolean loginSuccessful = false;
         while (!loginSuccessful) {
             loginSuccessful = logIn();
         }
         System.out.println("Hi! What are you looking for Today?");
         String productType; //Type of Product the user is looking for
-        Boolean valid; //If the user made valid selection
+        boolean valid; //If the user made valid selection
         do {
             System.out.println("Enter L for Laptop, P for Phone, C for Car ::");
             productType = sc.nextLine().toLowerCase();

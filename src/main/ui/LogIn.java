@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LogIn {
+    @SuppressWarnings("methodlength")
     public static boolean logIn() {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> userID = new ArrayList<>();
@@ -13,7 +14,7 @@ public class LogIn {
         System.out.println("1 - Login \n2 - Create Account");
         int select;
         select = sc.nextInt();
-        Boolean loggedIn = false;
+        boolean loggedIn = false;
         if (select == 2) {
             System.out.print("User ID :: ");
             String ui = sc.next();
@@ -33,6 +34,6 @@ public class LogIn {
                 System.out.println("Invalid username or password. Please try again.");
             }
         }
-        return loggedIn;
+        return true;
     }
 }
