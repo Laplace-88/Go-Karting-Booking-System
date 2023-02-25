@@ -24,7 +24,7 @@ public class TakeInput {
 
     Scanner sc = new Scanner(System.in);
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    @SuppressWarnings("methodlength")
     public void getReq(String category, String req) {
         System.out.println("Please Enter Your Preferences. Enter 0 when you are done.");
         switch (category) {
