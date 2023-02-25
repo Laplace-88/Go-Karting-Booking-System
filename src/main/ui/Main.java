@@ -2,8 +2,8 @@ package ui;
 
 import java.util.Scanner;
 
-import static model.LaptopSelection.laptopSelection;
-import static model.PhoneSelection.phoneSelection;
+import static model.LaptopSelection.*;
+import static model.PhoneSelection.*;
 
 public class Main extends LogIn {
     public static void main(String[] args) {

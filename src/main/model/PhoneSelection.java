@@ -3,9 +3,8 @@ package model;
 import ui.TakeInput;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class PhoneSelection {
+public class PhoneSelection extends TakeInput {
     private static final String[] BRANDS = {"Apple", "Samsung", "Google"};
     ArrayList<String> selectedBrands = new ArrayList<>();
     private static final String[] PROCESSOR = {"Apple A16 Bionic", "Apple A15 Bionic", "Snapdragon 8 Gen 2",
@@ -36,6 +35,8 @@ public class PhoneSelection {
     Boolean stereoSpeakers;
 
     public PhoneSelection() {
+        selectedCostLL = 0.0;
+        selectedCostUL = 0.0;
         fingerprintReader = false;
         quickCharging = false;
         wirelessCharging = false;
@@ -46,12 +47,79 @@ public class PhoneSelection {
         stereoSpeakers = false;
     }
 
-    Scanner sc = new Scanner(System.in);
+    PhoneSelection s1 = new PhoneSelection();
 
     public static void phoneSelection() {
-        System.out.println("Please Enter Your Preferences. Enter 0 when you are done.");
         PhoneSelection ps = new PhoneSelection();
+        ps.selectBrand();
+        ps.selectScreenSize();
+        ps.selectProcessor();
+        ps.selectOS();
+        ps.selectGraphicCard();
+        ps.selectRAM();
+        ps.selectStorage();
+        ps.selectDisplay();
+        ps.selectTouchScreen();
+        ps.selectFingerprintReader();
+        ps.selectBacklitKeyboard();
+        ps.selectThinLight();
+        ps.selectWarranty();
+        ps.selectBudget();
     }
 
+    public void selectBrand() {
+        s1.getReq("p", "Brand");
+    }
 
+    public void selectScreenSize() {
+        s1.getReq("p", "Screen Size");
+    }
+
+    public void selectProcessor() {
+        s1.getReq("p", "Processor");
+    }
+
+    public void selectOS() {
+        s1.getReq("p", "OS");
+    }
+
+    public void selectGraphicCard() {
+        s1.getReq("p", "Graphic Card");
+    }
+
+    public void selectRAM() {
+        s1.getReq("p", "RAM");
+    }
+
+    public void selectStorage() {
+        s1.getReq("p", "Storage");
+    }
+
+    public void selectDisplay() {
+        s1.getReq("p", "Display");
+    }
+
+    public void selectTouchScreen() {
+        s1.getReq("p", "Touch Screen");
+    }
+
+    public void selectFingerprintReader() {
+        s1.getReq("p", "Fingerprint Reader");
+    }
+
+    public void selectBacklitKeyboard() {
+        s1.getReq("p", "Backlit Keyboard");
+    }
+
+    public void selectThinLight() {
+        s1.getReq("p", "Thin and Light");
+    }
+
+    public void selectWarranty() {
+        s1.getReq("p", "Warranty");
+    }
+
+    public void selectBudget() {
+        s1.getReq("p", "Budget");
+    }
 }

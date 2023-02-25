@@ -38,8 +38,6 @@ public class LaptopSelection extends TakeInput {
         selectedCostUL = 0.0;
     }
 
-    TakeInput s1 = new LaptopSelection();
-
     public static void laptopSelection() {
         LaptopSelection ls = new LaptopSelection();
         ls.selectBrand();
@@ -59,58 +57,58 @@ public class LaptopSelection extends TakeInput {
     }
 
     private void selectBrand() {
-        s1.getReq("l", "Brand");
+        this.getReq("l", "Brand");
     }
 
     private void selectScreenSize() {
-        s1.getReq("l", "Screen Size");
+        this.getReq("l", "Screen Size");
     }
 
     private void selectProcessor() {
-        s1.getReq("l", "Processor");
+        this.getReq("l", "Processor");
     }
 
     private void selectOS() {
-        s1.getReq("l", "OS");
+        this.getReq("l", "OS");
     }
 
     private void selectGraphicCard() {
-        s1.getReq("l", "Graphic Card");
+        this.getReq("l", "Graphic Card");
     }
 
     private void selectRAM() {
-        s1.getReq("l", "RAM");
+        this.getReq("l", "RAM");
     }
 
     private void selectStorage() {
-        s1.getReq("l", "Storage");
+        this.getReq("l", "Storage");
     }
 
     private void selectDisplay() {
-        s1.getReq("l", "Display");
+        this.getReq("l", "Display");
     }
 
     private void selectTouchScreen() {
-        s1.getReq("l", "Touch Screen");
+        this.getReq("l", "Touch Screen");
     }
 
     private void selectFingerprintReader() {
-        s1.getReq("l", "Fingerprint Reader");
+        this.getReq("l", "Fingerprint Reader");
     }
 
     private void selectBacklitKeyboard() {
-        s1.getReq("l", "Backlit Keyboard");
+        this.getReq("l", "Backlit Keyboard");
     }
 
     private void selectThinLight() {
-        s1.getReq("l", "Thin and Light");
+        this.getReq("l", "Thin and Light");
     }
 
     private void selectWarranty() {
-        s1.getReq("l", "Warranty");
+        this.getReq("l", "Warranty");
     }
 
     private void selectBudget() {
-        s1.getReq("l", "Budget");
+        this.getReq("l", "Budget");
     }
 }
