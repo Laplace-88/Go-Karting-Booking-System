@@ -66,9 +66,16 @@ public class BookingSystem {
     //- If no slot is found, a message is displayed informing the user that no booking was found for the specified
     // racer.
     public void cancelSlot() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Current Bookings: ");
+        for (TimeSlot slot : timeSlots) {
+            if (!slot.getBookedRacers().isEmpty()) {
+                System.out.println(slot.getStartTime() + " - " + slot.getEndTime() + "\n Racer Name: "
+                        + slot.getBookedRacers());
+            }
+        }
         System.out.print("Enter the name of the racer whose booking you want to cancel: ");
-        String racerName = scanner.nextLine();
+        String racerName = sc.nextLine();
         boolean found = false;
         for (TimeSlot slot : bookedTimeSlots) {
             if (slot.getBookedRacers().contains(racerName)) {
