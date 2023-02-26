@@ -49,5 +49,6 @@ public class BookingSystem {
     public void cancelSlot() {
         System.out.println("Slots Currently Booked: ");
         System.out.println(bookedTimeSlots);
+        System.out.println("Enter Slot ");
     }
 }
