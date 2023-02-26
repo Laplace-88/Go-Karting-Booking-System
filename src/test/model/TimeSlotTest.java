@@ -8,6 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+/**
+ * The TimeSlotTest class tests the TimeSlot class using JUnit.
+ */
 public class TimeSlotTest {
 
     private TimeSlot slot;
