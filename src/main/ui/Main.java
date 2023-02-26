@@ -2,40 +2,36 @@ package ui;
 
 import java.util.Scanner;
 
-import static model.LaptopSelection.*;
-import static model.PhoneSelection.*;
-
-public class Main extends LogIn {
-    @SuppressWarnings("methodlength")
+public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         boolean loginSuccessful = false;
+        LogIn loggedIn = new LogIn();
         while (!loginSuccessful) {
-            loginSuccessful = logIn();
+            loginSuccessful = loggedIn.logIn();
         }
-        System.out.println("Hi! What are you looking for Today?");
-        String productType; //Type of Product the user is looking for
-        boolean valid; //If the user made valid selection
-        do {
-            System.out.println("Enter L for Laptop, P for Phone, C for Car ::");
-            productType = sc.nextLine().toLowerCase();
-            if (productType.equals("l") || productType.equals("p") || productType.equals("c")) {
-                valid = true;
-            } else {
-                System.out.println("Invalid Selection. Please retry ::");
-                valid = false;
+        BookingSystem bookingSystem = new BookingSystem();
+        boolean isBookingComplete = false;
+        while (!isBookingComplete) {
+            System.out.println("Welcome to the Gokarting Booking System");
+            System.out.println("1. Book a slot");
+            System.out.println("2. Cancel a booking");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    bookingSystem.bookSlot();
+                    break;
+                case 2:
+                    bookingSystem.cancelSlot();
+                    break;
+                case 3:
+                    isBookingComplete = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
-        } while (!valid);
-        switch (productType) {
-            case "l":
-                laptopSelection();
-                break;
-            case "p":
-                phoneSelection();
-                break;
-            case "c":
-                //TODO
-                break;
         }
     }
 }

@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LogIn {
+    ArrayList<String> userID;
+    ArrayList<String> pass;
+
+    public LogIn() {
+        userID = new ArrayList<>();
+        pass = new ArrayList<>();
+    }
+
     @SuppressWarnings("methodlength")
-    public static boolean logIn() {
+    public boolean logIn() {
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> userID = new ArrayList<>();
-        ArrayList<String> pass = new ArrayList<>();
         userID.add("k");
         pass.add("k");
         System.out.println("1 - Login \n2 - Create Account");
