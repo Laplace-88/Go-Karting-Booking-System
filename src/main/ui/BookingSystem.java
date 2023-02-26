@@ -24,7 +24,7 @@ public class BookingSystem {
 
     public void bookSlot() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your name: ");
+        System.out.print("Enter your Racer name: ");
         String racerName = scanner.nextLine();
         System.out.println("Available time slots:");
         int slotIndex = 1;
