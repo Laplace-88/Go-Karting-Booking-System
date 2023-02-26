@@ -32,4 +32,5 @@ book the time slot you prefer, and then you call them back to cancel it and so o
 * As a user, I want to be able to choose my race time slot.
 * As a user, I want to be able to choose the number of racers.
 * As a user, I want to be able to make a booking on my chosen time slot.
+* As a user, I want to be able to make multiple bookings.
 * As a user, I want to be able to cancel my booking.
