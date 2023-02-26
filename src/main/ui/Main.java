@@ -10,9 +10,9 @@ public class Main {
         BookingSystem bookingSystem = new BookingSystem();
         boolean isBookingComplete = false;
         while (!isBookingComplete) {
-            System.out.println("Welcome to the Gokarting Booking System \n1. Book a slot \n2. Cancel a booking");
+            System.out.println("Welcome to the Gokarting Booking System \n1. Book a slot\n2. Cancel a booking");
             System.out.println("3. Exit \nEnter your choice: ");
-            int choice = sc.nextInt();
+            int choice = Integer.parseInt(sc.nextLine().trim());
             switch (choice) {
                 case 1:
                     bookingSystem.bookSlot();
@@ -27,5 +27,6 @@ public class Main {
                     System.out.println("Invalid choice. Please try again.");
             }
         }
+        sc.close();
     }
 }

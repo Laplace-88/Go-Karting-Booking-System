@@ -38,17 +38,29 @@ public class BookingSystem {
         int selectedSlotIndex = scanner.nextInt();
         TimeSlot selectedSlot = timeSlots.get(selectedSlotIndex - 1);
         if (selectedSlot.bookSlot(racerName)) {
-            System.out.println("Slot booked successfully!");
+            System.out.println("Slot booked successfully! Racer Names: " + selectedSlot.getBookedRacers());
             bookedTimeSlots.add(timeSlots.get(selectedSlotIndex - 1));
-            timeSlots.remove(timeSlots.get(selectedSlotIndex - 1));
         } else {
             System.out.println("Slot is already full. Please select another slot.");
         }
     }
 
     public void cancelSlot() {
-        System.out.println("Slots Currently Booked: ");
-        System.out.println(bookedTimeSlots);
-        System.out.println("Enter Slot ");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the name of the racer whose booking you want to cancel: ");
+        String racerName = scanner.nextLine();
+        boolean found = false;
+        for (TimeSlot slot : bookedTimeSlots) {
+            if (slot.getBookedRacers().contains(racerName)) {
+                slot.getBookedRacers().remove(racerName);
+                found = true;
+                System.out.println("Booking cancelled successfully!");
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("No booking found for racer: " + racerName);
+        }
     }
+
 }
