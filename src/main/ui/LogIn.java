@@ -1,14 +1,12 @@
 package ui;
 
 import java.io.FileReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Scanner;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import model.LoginData;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * The LogIn class provides methods for logging in and creating accounts.
@@ -26,12 +24,16 @@ public class LogIn {
 
     // MODIFIES: loginData.json
     // EFFECTS: This method exports the userNames and passwords ArrayLists to the loginData.json file
-    // using the Gson library.
     public void exportDataToJson() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        LoginData loginData = new LoginData(userNames, passwords);
-        try (FileWriter writer = new FileWriter("loginData.json")) {
-            gson.toJson(loginData, writer);
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < userNames.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("username", userNames.get(i));
+            jsonObject.put("password", passwords.get(i));
+            jsonArray.put(jsonObject);
+        }
+        try (FileWriter fileWriter = new FileWriter("loginData.json")) {
+            fileWriter.write(jsonArray.toString(2));
             System.out.println("Logging you in...");
         } catch (IOException e) {
             System.out.println("Error exporting data to loginData.json");
@@ -47,11 +49,18 @@ public class LogIn {
     @SuppressWarnings("methodlength")
     public boolean logIn() {
         Scanner sc = new Scanner(System.in);
-        Gson gson = new Gson();
-        try (Reader reader = new FileReader("loginData.json")) {
-            LoginData loginData = gson.fromJson(reader, LoginData.class);
-            userNames = loginData.getUserNames();
-            passwords = loginData.getPasswords();
+        try (FileReader fileReader = new FileReader("loginData.json")) {
+            StringBuilder jsonString = new StringBuilder();
+            int c;
+            while ((c = fileReader.read()) != -1) {
+                jsonString.append((char) c);
+            }
+            JSONArray jsonArray = new JSONArray(jsonString.toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                userNames.add(jsonObject.getString("username"));
+                passwords.add(jsonObject.getString("password"));
+            }
         } catch (IOException e) {
             System.out.println("Error reading data from loginData.json");
             e.printStackTrace();
