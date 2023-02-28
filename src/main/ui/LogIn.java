@@ -12,18 +12,21 @@ import java.io.IOException;
 
 /**
  * The LogIn class provides methods for logging in and creating accounts.
- * It stores user names and passwords in separate ArrayLists.
+ * It stores usernames and passwords in separate ArrayLists.
  */
 public class LogIn {
     ArrayList<String> userNames;
     ArrayList<String> passwords;
 
-    //constructor
+    // Constructor
     public LogIn() {
         userNames = new ArrayList<>();
         passwords = new ArrayList<>();
     }
 
+    // MODIFIES: loginData.json
+    // EFFECTS: This method exports the userNames and passwords ArrayLists to the loginData.json file
+    // using the Gson library.
     public void exportDataToJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         LoginData loginData = new LoginData(userNames, passwords);
@@ -53,13 +56,13 @@ public class LogIn {
             System.out.println("Error reading data from loginData.json");
             e.printStackTrace();
         }
-
         System.out.println("1 - Login \n2 - Create Account");
         int select;
         select = sc.nextInt();
         boolean loggedIn = false;
         if (select == 2) {
-            System.out.print("User ID :: ");
+            System.out.println("----Create Account---");
+            System.out.print("Email ID :: ");
             String userName = sc.next();
             userNames.add(userName);
             System.out.print("Password :: ");
@@ -67,9 +70,10 @@ public class LogIn {
             this.passwords.add(password);
         }
         while (!loggedIn) {
-            System.out.print("Enter User ID :: ");
+            System.out.println("--------Login-------");
+            System.out.print("Email ID :: ");
             String userid = sc.next();
-            System.out.print("Enter your password :: ");
+            System.out.print("Password :: ");
             String password = sc.next();
             if (userNames.contains(userid) && this.passwords.get(userNames.indexOf(userid)).equals(password)) {
                 loggedIn = true;
