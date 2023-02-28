@@ -1,7 +1,14 @@
 package ui;
 
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import model.LoginData;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * The LogIn class provides methods for logging in and creating accounts.
@@ -17,6 +24,18 @@ public class LogIn {
         passwords = new ArrayList<>();
     }
 
+    public void exportDataToJson() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        LoginData loginData = new LoginData(userNames, passwords);
+        try (FileWriter writer = new FileWriter("loginData.json")) {
+            gson.toJson(loginData, writer);
+            System.out.println("Logging you in...");
+        } catch (IOException e) {
+            System.out.println("Error exporting data to loginData.json");
+            e.printStackTrace();
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: Effects: Prompts the user to log in or create a new account. If the user selects "Create Account",
     // prompts the user for a new user ID and password and adds them to the userNames and passwords ArrayLists.
@@ -25,8 +44,16 @@ public class LogIn {
     @SuppressWarnings("methodlength")
     public boolean logIn() {
         Scanner sc = new Scanner(System.in);
-        userNames.add("k");
-        passwords.add("k");
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader("loginData.json")) {
+            LoginData loginData = gson.fromJson(reader, LoginData.class);
+            userNames = loginData.getUserNames();
+            passwords = loginData.getPasswords();
+        } catch (IOException e) {
+            System.out.println("Error reading data from loginData.json");
+            e.printStackTrace();
+        }
+
         System.out.println("1 - Login \n2 - Create Account");
         int select;
         select = sc.nextInt();
@@ -50,6 +77,7 @@ public class LogIn {
                 System.out.println("Invalid username or password. Please try again.");
             }
         }
+        exportDataToJson();
         return true;
     }
 }
