@@ -50,6 +50,14 @@ public class TimeSlot {
         return endTime;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getRemainingRacerSlots() {
+        return capacity - bookedRacers.size();
+    }
+
     public List<String> getBookedRacers() {
         return bookedRacers;
     }

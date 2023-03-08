@@ -38,6 +38,13 @@ public class TimeSlotTest {
     }
 
     @Test
+    public void testGetCapacity() {
+        assertEquals(2, slot.getCapacity());
+        slot.bookSlot("Racer1");
+        assertEquals(2, slot.getCapacity());
+    }
+
+    @Test
     public void testGetStartTime() {
         assertEquals(LocalTime.of(12, 0), slot.getStartTime());
     }
@@ -45,6 +52,15 @@ public class TimeSlotTest {
     @Test
     public void testGetEndTime() {
         assertEquals(LocalTime.of(12, 30), slot.getEndTime());
+    }
+
+    @Test
+    public void testGetRemainingRacerSlots() {
+        assertEquals(2, slot.getRemainingRacerSlots());
+        slot.bookSlot("Racer1");
+        assertEquals(1, slot.getRemainingRacerSlots());
+        slot.bookSlot("Racer2");
+        assertEquals(0, slot.getRemainingRacerSlots());
     }
 
     @Test

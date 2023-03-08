@@ -2,7 +2,7 @@ package ui;
 
 import model.TimeSlot;
 
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -11,15 +11,12 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
-
 /**
  * Constructs a BookingSystem object.
  * It initializes the timeSlots list with all available time slots for the day.
  */
 public class BookingSystem {
     private final List<TimeSlot> timeSlots;
-    private final List<TimeSlot> bookedTimeSlots;
 
     // Constructor
     public BookingSystem() {
@@ -30,7 +27,6 @@ public class BookingSystem {
             timeSlots.add(slot);
             time = time.plusMinutes(30);
         }
-        this.bookedTimeSlots = new ArrayList<>();
     }
 
     // MODIFIES: this, selectedSlot
@@ -49,6 +45,7 @@ public class BookingSystem {
         for (TimeSlot slot : timeSlots) {
             if (slot.isAvailable()) {
                 System.out.println(slotIndex + ". " + slot.toString());
+                System.out.println("Racer Slots Remaining :: " + slot.getRemainingRacerSlots());
             }
             slotIndex++;
         }
@@ -57,10 +54,10 @@ public class BookingSystem {
         TimeSlot selectedSlot = timeSlots.get(selectedSlotIndex - 1);
         if (selectedSlot.bookSlot(racerName)) {
             System.out.println("Slot booked successfully! Racer Names: " + selectedSlot.getBookedRacers());
-            bookedTimeSlots.add(timeSlots.get(selectedSlotIndex - 1));
         } else {
             System.out.println("Slot is already full. Please select another slot.");
         }
+        saveBookingInfo();
     }
 
     // MODIFIES: this
@@ -82,7 +79,7 @@ public class BookingSystem {
         System.out.print("Enter the name of the racer whose booking you want to cancel: ");
         String racerName = sc.nextLine();
         boolean found = false;
-        for (TimeSlot slot : bookedTimeSlots) {
+        for (TimeSlot slot : timeSlots) {
             if (slot.getBookedRacers().contains(racerName)) {
                 slot.getBookedRacers().remove(racerName);
                 found = true;
@@ -92,6 +89,34 @@ public class BookingSystem {
         }
         if (!found) {
             System.out.println("No booking found for racer: " + racerName);
+        }
+        saveBookingInfo();
+    }
+
+    // MODIFIES: Bookings.json
+    // EFFECTS: This method exports the start-time, end-time, capacity, booked racers and
+    // remaining slots ArrayLists to the Bookings.json file
+    private void saveBookingInfo() {
+        JSONArray bookings = new JSONArray();
+        for (TimeSlot slot : timeSlots) {
+            if (!slot.getBookedRacers().isEmpty()) {
+                JSONObject booking = new JSONObject();
+                booking.put("start_time", slot.getStartTime().toString());
+                booking.put("end_time", slot.getEndTime().toString());
+                booking.put("capacity", slot.getCapacity());
+                booking.put("booked_racers", new JSONArray(slot.getBookedRacers()));
+                booking.put("remaining_slots", slot.getRemainingRacerSlots());
+                bookings.put(booking);
+            }
+        }
+        try {
+            FileWriter file = new FileWriter("Bookings.json");
+            file.write(bookings.toString());
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving booking information.");
+            e.printStackTrace();
         }
     }
 
