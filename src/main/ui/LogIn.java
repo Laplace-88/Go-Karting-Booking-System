@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -65,20 +66,20 @@ public class LogIn {
             System.out.println("Error reading data from loginData.json");
             e.printStackTrace();
         }
-        System.out.println("1 - Login \n2 - Create Account");
-        int select;
-        select = sc.nextInt();
         boolean loggedIn = false;
-        if (select == 2) {
-            System.out.println("----Create Account---");
-            System.out.print("Email ID :: ");
-            String userName = sc.next();
-            userNames.add(userName);
-            System.out.print("Password :: ");
-            String password = sc.next();
-            this.passwords.add(password);
-        }
         while (!loggedIn) {
+            System.out.println("1 - Login \n2 - Create Account");
+            int select;
+            select = sc.nextInt();
+            if (select == 2) {
+                System.out.println("----Create Account---");
+                System.out.print("Email ID :: ");
+                String userName = sc.next();
+                userNames.add(userName);
+                System.out.print("Password :: ");
+                String password = sc.next();
+                this.passwords.add(password);
+            }
             System.out.println("--------Login-------");
             System.out.print("Email ID :: ");
             String userid = sc.next();

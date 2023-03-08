@@ -11,6 +11,7 @@ import java.util.List;
  */
 
 public class TimeSlot {
+    //TODO
     private final LocalTime startTime;
     private final LocalTime endTime;
     private final int capacity;
@@ -58,4 +59,5 @@ public class TimeSlot {
     public String toString() {
         return startTime.toString() + " - " + endTime.toString();
     }
+
 }
