@@ -11,7 +11,6 @@ import java.util.List;
  */
 
 public class TimeSlot {
-    //TODO
     private final LocalTime startTime;
     private final LocalTime endTime;
     private final int capacity;
