@@ -16,6 +16,7 @@ public class LandingPageUI extends JFrame implements ActionListener {
         frame = new JFrame();
         frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Go-Karting Booking System");
         panel = new JPanel();
         frame.add(panel);
         panel.setLayout(null);
@@ -49,8 +50,10 @@ public class LandingPageUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         User account = new User();
         if (e.getSource() == signin) {
+            frame.setVisible(false);
             account.logIn();
         } else {
+            frame.setVisible(false);
             account.createAccount();
         }
     }

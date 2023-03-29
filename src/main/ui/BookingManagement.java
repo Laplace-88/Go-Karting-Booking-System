@@ -2,6 +2,9 @@ package ui;
 
 import model.TimeSlot;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -11,15 +14,20 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.*;
+
 /**
  * Constructs a BookingSystem object.
  * It initializes the timeSlots list with all available time slots for the day.
  */
-public class BookingSystem {
+public class BookingManagement extends JFrame implements ActionListener {
     private final List<TimeSlot> timeSlots;
 
+    private final JFrame frame;
+    private final JPanel panel;
+
     // Constructor
-    public BookingSystem() {
+    public BookingManagement() {
         this.timeSlots = new ArrayList<>();
         LocalTime time = LocalTime.of(12, 0);
         for (int i = 0; i < 24; i++) {
@@ -27,6 +35,12 @@ public class BookingSystem {
             timeSlots.add(slot);
             time = time.plusMinutes(30);
         }
+        frame = new JFrame();
+        panel = new JPanel(new GridLayout(0, 2));
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panel.setLayout(new GridLayout(2, 24));
+        frame.setTitle("Go-Karting Booking System");
     }
 
     // MODIFIES: this, selectedSlot
@@ -37,9 +51,14 @@ public class BookingSystem {
     //- If the selected time slot is already booked, a message is displayed informing the user that the slot is already
     // full.
     public void bookSlot() {
+        frame.add(panel);
+        JLabel racerName = new JLabel("Racer name");
+        JTextField racerText = new JTextField();
+        racerName.setBounds(100, 180, 80, 25);
+        panel.add(racerName);
+        racerText.setBounds(200, 180, 165, 25);
+        panel.add(racerText);
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your Racer name: ");
-        String racerName = scanner.nextLine();
         System.out.println("Available time slots:");
         int slotIndex = 1;
         for (TimeSlot slot : timeSlots) {
@@ -52,11 +71,12 @@ public class BookingSystem {
         System.out.print("Enter the slot number you want to book: ");
         int selectedSlotIndex = scanner.nextInt();
         TimeSlot selectedSlot = timeSlots.get(selectedSlotIndex - 1);
-        if (selectedSlot.bookSlot(racerName)) {
-            System.out.println("Slot booked successfully! Racer Names: " + selectedSlot.getBookedRacers());
-        } else {
-            System.out.println("Slot is already full. Please select another slot.");
-        }
+//        if (selectedSlot.bookSlot(racerText)) {
+//            System.out.println("Slot booked successfully! Racer Names: " + selectedSlot.getBookedRacers());
+//        } else {
+//            System.out.println("Slot is already full. Please select another slot.");
+//        }
+        frame.setVisible(true);
         saveBookingInfo();
     }
 
@@ -120,4 +140,8 @@ public class BookingSystem {
         }
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }

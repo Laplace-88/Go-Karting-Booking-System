@@ -19,8 +19,8 @@ import javax.swing.*;
 public class User extends JFrame implements ActionListener {
     ArrayList<String> userNames;
     ArrayList<String> passwords;
-    private static JFrame frame;
-    private static JPanel panel;
+    protected static JFrame frame;
+    protected static JPanel panel;
     private static JLabel emailLabel;
     private static JTextField emailText;
     private static JLabel passwordLabel;
@@ -38,6 +38,7 @@ public class User extends JFrame implements ActionListener {
         frame.setSize(500, 500);
         panel = new JPanel();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Go-Karting Booking System");
         frame.add(panel);
         panel.setLayout(null);
         emailLabel = new JLabel("Email ID");
@@ -119,11 +120,15 @@ public class User extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
+            frame.setVisible(false);
             LandingPageUI launch = new LandingPageUI();
             launch.landingPage();
         } else if (e.getSource() == logInButton) {
             if (userNames.contains(emailText.getText()) && passwords.contains(passwordText.getText())) {
                 System.out.println("Login Successful");
+                BookingPage userbooking = new BookingPage();
+                frame.setVisible(false);
+                userbooking.launchBookingPage();
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect email/password", "Error", JOptionPane.ERROR_MESSAGE);
                 System.out.println("Incorrect Email/Password");
@@ -131,7 +136,7 @@ public class User extends JFrame implements ActionListener {
         } else if (e.getSource() == signUpButton) {
             userNames.add(emailText.getText());
             passwords.add(passwordText.getText());
+            exportDataToJson();
         }
-        exportDataToJson();
     }
 }
