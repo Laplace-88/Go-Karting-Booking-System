@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,18 @@ public class TimeSlot {
         this.endTime = startTime.plusMinutes(30);
         this.capacity = capacity;
         this.bookedRacers = new ArrayList<>();
+    }
+
+    public TimeSlot(JSONObject obj) {
+        this.startTime = LocalTime.parse(obj.getString("start_time"));
+        this.capacity = obj.getInt("capacity");
+        this.endTime = LocalTime.parse(obj.getString("end_time"));
+        JSONArray bookedRacersArray = obj.getJSONArray("booked_racers");
+        this.bookedRacers = new ArrayList<>();
+        for (Object o : bookedRacersArray) {
+            String racer = (String) o;
+            this.bookedRacers.add(racer);
+        }
     }
 
     // EFFECTS: returns true if the number of booked racers is less than the capacity of the time slot; false otherwise

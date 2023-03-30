@@ -38,7 +38,6 @@ public class User extends JFrame implements ActionListener {
         frame.setSize(500, 500);
         panel = new JPanel();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Go-Karting Booking System");
         frame.add(panel);
         panel.setLayout(null);
         emailLabel = new JLabel("Email ID");
@@ -108,15 +107,18 @@ public class User extends JFrame implements ActionListener {
     // Otherwise, prompts the user for an existing user ID and password and verifies them. Returns true when a user
     // has successfully logged in.
     public void logIn() {
+        frame.setTitle("Go-Karting Booking - Sign In");
         panel.add(logInButton);
         logInButton.addActionListener(this);
     }
 
     public void createAccount() {
+        frame.setTitle("Go-Karting Booking - Create Account");
         panel.add(signUpButton);
         signUpButton.addActionListener(this);
     }
 
+    @SuppressWarnings("methodlength")
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backButton) {
@@ -124,14 +126,20 @@ public class User extends JFrame implements ActionListener {
             LandingPageUI launch = new LandingPageUI();
             launch.landingPage();
         } else if (e.getSource() == logInButton) {
+            JOptionPane pane;
             if (userNames.contains(emailText.getText()) && passwords.contains(passwordText.getText())) {
-                System.out.println("Login Successful");
-                BookingPage userbooking = new BookingPage();
+                String message = "Login Successful!";
+                pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+                final JDialog dialog = pane.createDialog(null, "Success!");
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                Timer timer = new Timer(3000, evt -> dialog.dispose());
+                timer.start(); // Set a timer to automatically close the popup after 3 seconds
+                dialog.setVisible(true);
+                MainMenu userBooking = new MainMenu();
                 frame.setVisible(false);
-                userbooking.launchBookingPage();
+                userBooking.launchManageBooking();
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect email/password", "Error", JOptionPane.ERROR_MESSAGE);
-                System.out.println("Incorrect Email/Password");
             }
         } else if (e.getSource() == signUpButton) {
             userNames.add(emailText.getText());
