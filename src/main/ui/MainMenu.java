@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class MainMenu extends JFrame implements ActionListener {
@@ -107,6 +106,7 @@ public class MainMenu extends JFrame implements ActionListener {
     // full.
     public void launchBookSlot() {
         frame.remove(manageBookingPanel);
+        makeBookingPanel.repaint();
         frame.add(makeBookingPanel);
         int slotIndex = 1;
         for (TimeSlot slot : timeSlots) {
@@ -248,6 +248,7 @@ public class MainMenu extends JFrame implements ActionListener {
             frame.setVisible(false);
             System.exit(0);
         } else {
+            frame.setVisible(false);
             JButton button = (JButton) e.getSource();
             String timeSlot = button.getText();
             int selectedSlotIndex = Integer.parseInt(timeSlot.substring(0, timeSlot.indexOf(".")));
