@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalTime;
@@ -19,6 +21,29 @@ public class TimeSlotTest {
     @BeforeEach
     public void setup() {
         slot = new TimeSlot(LocalTime.of(12, 0), 2);
+    }
+
+    @Test
+    public void testJSONObjectConstructor() {
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put("Racer1");
+        jsonArray.put("Racer2");
+
+        JSONObject obj = new JSONObject();
+        obj.put("start_time", "12:00:00");
+        obj.put("end_time", "12:30:00");
+        obj.put("capacity", 2);
+        obj.put("booked_racers", jsonArray);
+
+        TimeSlot newSlot = new TimeSlot(obj);
+
+        assertEquals(LocalTime.of(12, 0), newSlot.getStartTime());
+        assertEquals(LocalTime.of(12, 30), newSlot.getEndTime());
+        assertEquals(2, newSlot.getCapacity());
+        List<String> bookedRacers = newSlot.getBookedRacers();
+        assertEquals(2, bookedRacers.size());
+        assertTrue(bookedRacers.contains("Racer1"));
+        assertTrue(bookedRacers.contains("Racer2"));
     }
 
     @Test
