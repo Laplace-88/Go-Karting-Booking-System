@@ -222,6 +222,7 @@ public class MainMenu extends JFrame implements ActionListener {
                 timeSlots.add(slot);
             }
         }
+        buildSlotPage();
     }
 
     // REQUIRES: The source file must exist.
