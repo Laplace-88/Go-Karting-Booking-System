@@ -34,10 +34,6 @@ public class MainMenu extends JFrame implements ActionListener {
     private final JButton quit;
     private String racerName;
     private TimeSlot selectedSlot;
-    private JButton submitButton;
-    private JPanel racerNamePanel;
-    private JLabel enterRacer;
-    private JTextField enterRacerText;
 
     // Constructor
     public MainMenu() {
@@ -58,14 +54,11 @@ public class MainMenu extends JFrame implements ActionListener {
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
         quit = new JButton("Quit");
-        submitButton = new JButton("Submit");
-        racerNamePanel = new JPanel(new FlowLayout());
-        enterRacer = new JLabel("Racer Name");
-        enterRacerText = new JTextField();
         buildSlotPage();
         layout();
     }
 
+    // TODO
     // MODIFIES: this, makeBookingPanel, times, slotTime
     // EFFECTS: Builds the booking panel by adding buttons for each available time slot.
     public void buildSlotPage() {
@@ -104,12 +97,6 @@ public class MainMenu extends JFrame implements ActionListener {
         manageBookingPanel.add(quit);
         quit.setPreferredSize(new Dimension(150, 25));
         quit.addActionListener(this);
-        racerNamePanel.add(enterRacer);
-        racerNamePanel.add(enterRacerText);
-        racerNamePanel.add(submitButton);
-        submitButton.addActionListener(this);
-        enterRacerText.setPreferredSize(new Dimension(100, 25));
-        submitButton.setPreferredSize(new Dimension(100, 25));
     }
 
     // MODIFIES: this, frame
@@ -128,10 +115,8 @@ public class MainMenu extends JFrame implements ActionListener {
     //- If the selected time slot is already booked, a message is displayed informing the user that the slot is already
     // full.
     public void launchBookSlot() {
-        frame.remove(manageBookingPanel);
-        makeBookingPanel.repaint();
-        frame.add(makeBookingPanel);
-        frame.setVisible(true);
+        ViewSlotsDialog bookSlotDialog = new ViewSlotsDialog(frame, this);
+        bookSlotDialog.setVisible(true);
     }
 
     // MODIFIES: this
@@ -203,7 +188,7 @@ public class MainMenu extends JFrame implements ActionListener {
         } catch (IOException e) {
             System.out.println("An error occurred while trying to load the booking information.");
             e.printStackTrace();
-            popup("An error occurred while trying to load the booking information.", "failed");
+            popup("An error occurred while trying to load the booking information.", "Failed");
             return;
         }
         JSONArray jsonObject = new JSONArray(jsonData);
@@ -222,7 +207,8 @@ public class MainMenu extends JFrame implements ActionListener {
                 timeSlots.add(slot);
             }
         }
-        buildSlotPage();
+        // TODO
+        // buildSlotPage();
     }
 
     // REQUIRES: The source file must exist.
@@ -264,18 +250,19 @@ public class MainMenu extends JFrame implements ActionListener {
             frame.setVisible(false);
             System.exit(0);
         } else {
-            frame.setVisible(false);
-            JButton button = (JButton) e.getSource();
-            String timeSlot = button.getText();
-            int selectedSlotIndex = Integer.parseInt(timeSlot.substring(0, timeSlot.indexOf(".")));
-            selectedSlot = timeSlots.get(selectedSlotIndex - 1);
-            racerName = this.pullRacerName();
-            if (selectedSlot.bookSlot(racerName)) {
-                this.launchManageBooking();
-                popup("Booking Completed!", "Success");
-            } else {
-                System.out.println("Slot is already full. Please select another slot.");
-            }
+//            frame.setVisible(false);
+//            JButton button = (JButton) e.getSource();
+//            String timeSlot = button.getText();
+//            int selectedSlotIndex = Integer.parseInt(timeSlot.substring(0, timeSlot.indexOf(".")));
+//            selectedSlot = timeSlots.get(selectedSlotIndex - 1);
+//            racerName = this.pullRacerName();
+//            if (selectedSlot.bookSlot(racerName)) {
+//                this.launchManageBooking();
+//                popup("Booking Completed!", "Success");
+//            } else {
+//                popup("Slot is already full. Please select another slot.", "Failed");
+//                System.out.println("Slot is already full. Please select another slot.");
+//            }
             //JOptionPane.showMessageDialog(frame, "You clicked " + selectedSlotIndex);
         }
     }

@@ -124,6 +124,15 @@ public class User extends JFrame implements ActionListener {
         signUpButton.addActionListener(this);
     }
 
+    public void popup(String message, String title) {
+        JOptionPane pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
+        final JDialog dialog = pane.createDialog(null, title);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        Timer timer = new Timer(3000, evt -> dialog.dispose());
+        timer.start(); // Set a timer to automatically close the popup after 3 seconds
+        dialog.setVisible(true);
+    }
+
     // MODIFIES: this
     // EFFECTS: Handles button clicks. If the "Back" button is clicked, closes the User window and returns to the
     // landing page. If the "Log In" button is clicked, verifies the email and password entered and opens the
@@ -137,22 +146,17 @@ public class User extends JFrame implements ActionListener {
             LandingPageUI launch = new LandingPageUI();
             launch.landingPage();
         } else if (e.getSource() == logInButton) {
-            JOptionPane pane;
             if (userNames.contains(emailText.getText()) && passwords.contains(passwordText.getText())) {
                 String message = "Login Successful!";
-                pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
-                final JDialog dialog = pane.createDialog(null, "Success!");
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                Timer timer = new Timer(3000, evt -> dialog.dispose());
-                timer.start(); // Set a timer to automatically close the popup after 3 seconds
-                dialog.setVisible(true);
-                MainMenu userBooking = new MainMenu();
+                popup(message, "Success");
+                MainMenu mainMenu = new MainMenu();
                 frame.setVisible(false);
-                userBooking.launchManageBooking();
+                mainMenu.launchManageBooking();
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect email/password", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (e.getSource() == signUpButton) {
+            popup("Account Created", "Success");
             userNames.add(emailText.getText());
             passwords.add(passwordText.getText());
             exportDataToJson();
