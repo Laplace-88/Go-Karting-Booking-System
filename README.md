@@ -32,7 +32,15 @@ book the time slot you prefer, and then you call them back to cancel it and so o
 * As a user, I want to be able to see available time slots.
 * As a user, I want to be able to see the remaining racer slots in a time slot.
 * As a user, I want to be able to choose my race time slot.
-* As a user, I want to be able to choose the number of racers.
 * As a user, I want to be able to make a booking on my chosen time slot.
 * As a user, I want to be able to make multiple bookings.
 * As a user, I want to be able to cancel my booking.
+* As a user, I want to be able to see my bookings next time I log in.
+
+<h4>Instructions for Grader</h4>
+
+* You can generate the first required action related to adding Xs to a Y by booking a slot multiple times.
+* You can generate the second required action related to adding Xs to a Y by cancelling a booking.
+* You can locate my visual component by launching the landing page.
+* You can save the state of my application by clicking on Save in Main Menu.
+* You can reload the state of my application by clicking on Load in Main Menu.

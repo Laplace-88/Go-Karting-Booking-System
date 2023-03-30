@@ -1,8 +1,5 @@
 package ui;
 
-import java.awt.print.Book;
-import java.util.Scanner;
-
 /**
  This class represents the main entry point for the Gokarting Booking System application.
  */
