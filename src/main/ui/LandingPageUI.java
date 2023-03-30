@@ -5,6 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ The LandingPageUI class is a JPanel that displays the landing page of the Go-Karting Booking System GUI.
+ It includes buttons for signing in or creating a new account, and displays a background image of a go-karting track.
+ When the user clicks on the "sign in" button, the LandingPageUI object sets its visibility to false and calls the
+ logIn() method of a User object. When the user clicks on the "create a new account" button, the LandingPageUI object
+ sets its visibility to false and calls the createAccount() method of a User object.
+ */
+
 public class LandingPageUI extends JPanel implements ActionListener {
 
     private static JFrame frame;
@@ -13,6 +21,7 @@ public class LandingPageUI extends JPanel implements ActionListener {
     private static JButton signin;
     private static ImageIcon imageIcon;
 
+    // Constructor
     public void landingPage() {
         frame = new JFrame();
         frame.setSize(1000, 667);
@@ -34,6 +43,11 @@ public class LandingPageUI extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: JButton signin,JPanel panel
+    // EFFECTS: Creates a JButton object with the label "Sign in"
+    //Sets the bounds of the JButton object
+    //Adds the JButton object to the JPanel object
+    //Adds an ActionListener to the JButton object to listen for click events
     private void signIn() {
         signin = new JButton("Sign in");
         signin.setBounds(460, 550, 80, 25);
@@ -41,6 +55,11 @@ public class LandingPageUI extends JPanel implements ActionListener {
         signin.addActionListener(new LandingPageUI());
     }
 
+    // MODIFIES: JButton signup,JPanel panel
+    // EFFECTS: Creates a JButton object with the label "Create a new account"
+    //Sets the bounds of the JButton object
+    //Adds the JButton object to the JPanel object
+    //Adds an ActionListener to the JButton object to listen for click events
     private void createAccount() {
         signup = new JButton("Create a new account");
         signup.setBounds(350, 580, 300, 25);
@@ -48,6 +67,12 @@ public class LandingPageUI extends JPanel implements ActionListener {
         signup.addActionListener(new LandingPageUI());
     }
 
+    // MODIFIES: JFrame frame
+    // EFFECTS: Creates a User object
+    // If the source of the ActionEvent is the "signin" button,
+    // sets the visibility of the JFrame object to false and calls the logIn() method of the User object
+    // If the source of the ActionEvent is the "signup" button,
+    // sets the visibility of the JFrame object to false and calls the createAccount() method of the User object
     @Override
     public void actionPerformed(ActionEvent e) {
         User account = new User();

@@ -13,8 +13,8 @@ import org.json.JSONObject;
 import javax.swing.*;
 
 /**
- * The LogIn class provides methods for logging in and creating accounts.
- * It stores usernames and passwords in separate ArrayLists.
+ The User class provides methods for logging in and creating accounts.
+ It stores usernames and passwords in separate ArrayLists.
  */
 public class User extends JFrame implements ActionListener {
     ArrayList<String> userNames;
@@ -82,6 +82,9 @@ public class User extends JFrame implements ActionListener {
         }
     }
 
+    // REQUIRES: loginData.json file exists
+    // MODIFIES: this
+    // EFFECTS: Imports the userNames and passwords ArrayLists from the loginData.json file
     public void importDataFromJson() {
         try (FileReader fileReader = new FileReader("loginData.json")) {
             StringBuilder jsonString = new StringBuilder();
@@ -102,7 +105,7 @@ public class User extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: Effects: Prompts the user to log in or create a new account. If the user selects "Create Account",
+    // EFFECTS: Prompts the user to log in or create a new account. If the user selects "Create Account",
     // prompts the user for a new user ID and password and adds them to the userNames and passwords ArrayLists.
     // Otherwise, prompts the user for an existing user ID and password and verifies them. Returns true when a user
     // has successfully logged in.
@@ -112,12 +115,20 @@ public class User extends JFrame implements ActionListener {
         logInButton.addActionListener(this);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Prompts the user to create a new account. Prompts the user for a new user ID and password and adds them
+    // to the userNames and passwords ArrayLists.
     public void createAccount() {
         frame.setTitle("Go-Karting Booking - Create Account");
         panel.add(signUpButton);
         signUpButton.addActionListener(this);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Handles button clicks. If the "Back" button is clicked, closes the User window and returns to the
+    // landing page. If the "Log In" button is clicked, verifies the email and password entered and opens the
+    // main menu if the login is successful. If the "Sign Up" button is clicked, adds a new username and password
+    // to the ArrayLists and exports them to the loginData.json file.
     @SuppressWarnings("methodlength")
     @Override
     public void actionPerformed(ActionEvent e) {

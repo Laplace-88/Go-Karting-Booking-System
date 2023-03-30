@@ -27,6 +27,7 @@ public class TimeSlot {
         this.bookedRacers = new ArrayList<>();
     }
 
+    // Constructor for loading
     public TimeSlot(JSONObject obj) {
         this.startTime = LocalTime.parse(obj.getString("start_time"));
         this.capacity = obj.getInt("capacity");

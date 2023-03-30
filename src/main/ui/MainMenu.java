@@ -39,6 +39,7 @@ public class MainMenu extends JFrame implements ActionListener {
     private JLabel enterRacer;
     private JTextField enterRacerText;
 
+    // Constructor
     public MainMenu() {
         this.timeSlots = new ArrayList<>();
         LocalTime time = LocalTime.of(12, 0);
@@ -65,6 +66,8 @@ public class MainMenu extends JFrame implements ActionListener {
         layout();
     }
 
+    // MODIFIES: this, makeBookingPanel, times, slotTime
+    // EFFECTS: Builds the booking panel by adding buttons for each available time slot.
     public void buildSlotPage() {
         makeBookingPanel = new JPanel(new GridLayout(24, 2));
         int slotIndex = 1;
@@ -81,6 +84,8 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this, frame, bookSlot, cancelBooking, saveButton, loadButton, quit, enterRacerText, submitButton
+    // EFFECTS: Sets up the layout of the main menu.
     public void layout() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         bookSlot.setPreferredSize(new Dimension(150, 25));
@@ -107,6 +112,8 @@ public class MainMenu extends JFrame implements ActionListener {
         submitButton.setPreferredSize(new Dimension(100, 25));
     }
 
+    // MODIFIES: this, frame
+    // EFFECTS: Switches to the manage booking panel.
     public void launchManageBooking() {
         frame.remove(makeBookingPanel);
         frame.add(manageBookingPanel);
@@ -153,6 +160,7 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: Prompts the user to enter a racer name and returns the input as a string.
     public String pullRacerName() {
         racerName = JOptionPane.showInputDialog(frame, "Racer Name");
         return racerName;
@@ -185,6 +193,8 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: Loads the booking information from the Bookings.json file and
+    // updates the timeSlots ArrayList accordingly.
     @SuppressWarnings("methodlength")
     private void loadBookingInfo() {
         String jsonData;
@@ -214,6 +224,7 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
+    // REQUIRES: The source file must exist.
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
