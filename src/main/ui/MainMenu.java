@@ -77,6 +77,10 @@ public class MainMenu extends JFrame implements ActionListener {
         }
     }
 
+    public List<TimeSlot> getTimeSlots() {
+        return timeSlots;
+    }
+
     // MODIFIES: this, frame, bookSlot, cancelBooking, saveButton, loadButton, quit, enterRacerText, submitButton
     // EFFECTS: Sets up the layout of the main menu.
     public void layout() {
@@ -236,7 +240,7 @@ public class MainMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bookSlot) {
-            frame.setVisible(false);
+//            frame.setVisible(false);
             this.launchBookSlot();
         } else if (e.getSource() == cancelBooking) {
             this.launchCancelSlot();
