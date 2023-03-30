@@ -24,7 +24,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private ArrayList<JButton> times;
     private JButton slotTime;
-    private final JPanel makeBookingPanel;
+    private JPanel makeBookingPanel;
     private final JFrame frame;
     private final JPanel manageBookingPanel;
     private final JButton bookSlot;
@@ -49,7 +49,6 @@ public class MainMenu extends JFrame implements ActionListener {
         }
         times = new ArrayList<>();
         slotTime = new JButton();
-        makeBookingPanel = new JPanel(new GridLayout(0, 2));
         frame = new JFrame();
         frame.setSize(500, 500);
         manageBookingPanel = new JPanel(new FlowLayout());
@@ -62,7 +61,24 @@ public class MainMenu extends JFrame implements ActionListener {
         racerNamePanel = new JPanel(new FlowLayout());
         enterRacer = new JLabel("Racer Name");
         enterRacerText = new JTextField();
+        buildSlotPage();
         layout();
+    }
+
+    public void buildSlotPage() {
+        makeBookingPanel = new JPanel(new GridLayout(24, 2));
+        int slotIndex = 1;
+        for (TimeSlot slot : timeSlots) {
+            if (slot.isAvailable()) {
+                slotTime = new JButton(slotIndex + ". " + slot.toString());
+                JLabel remainingSlots = new JLabel("Racer Slots Remaining :: " + slot.getRemainingRacerSlots());
+                makeBookingPanel.add(slotTime);
+                makeBookingPanel.add(remainingSlots);
+                times.add(slotTime);
+                times.get(slotIndex - 1).addActionListener(this);
+            }
+            slotIndex++;
+        }
     }
 
     public void layout() {
@@ -108,18 +124,6 @@ public class MainMenu extends JFrame implements ActionListener {
         frame.remove(manageBookingPanel);
         makeBookingPanel.repaint();
         frame.add(makeBookingPanel);
-        int slotIndex = 1;
-        for (TimeSlot slot : timeSlots) {
-            if (slot.isAvailable()) {
-                slotTime = new JButton(slotIndex + ". " + slot.toString());
-                JLabel remainingSlots = new JLabel("Racer Slots Remaining :: " + slot.getRemainingRacerSlots());
-                makeBookingPanel.add(slotTime);
-                makeBookingPanel.add(remainingSlots);
-                times.add(slotTime);
-                times.get(slotIndex - 1).addActionListener(this);
-            }
-            slotIndex++;
-        }
         frame.setVisible(true);
     }
 
