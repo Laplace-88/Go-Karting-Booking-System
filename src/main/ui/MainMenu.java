@@ -71,15 +71,16 @@ public class MainMenu extends JFrame implements ActionListener {
                 makeBookingPanel.add(slotTime);
                 makeBookingPanel.add(remainingSlots);
                 times.add(slotTime);
-                times.get(slotIndex - 1).addActionListener(this);
+                slotTime.addActionListener(this);
             }
             slotIndex++;
         }
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(makeBookingPanel);
+        frame.revalidate();
+        frame.repaint();
     }
 
-    public List<TimeSlot> getTimeSlots() {
-        return timeSlots;
-    }
 
     // MODIFIES: this, frame, bookSlot, cancelBooking, saveButton, loadButton, quit, enterRacerText, submitButton
     // EFFECTS: Sets up the layout of the main menu.
@@ -119,8 +120,11 @@ public class MainMenu extends JFrame implements ActionListener {
     //- If the selected time slot is already booked, a message is displayed informing the user that the slot is already
     // full.
     public void launchBookSlot() {
-        ViewSlotsDialog bookSlotDialog = new ViewSlotsDialog(frame, this);
-        bookSlotDialog.setVisible(true);
+        frame.remove(manageBookingPanel);
+        makeBookingPanel.repaint();
+        buildSlotPage();
+        frame.add(makeBookingPanel);
+        frame.setVisible(true);
     }
 
     // MODIFIES: this
@@ -240,7 +244,7 @@ public class MainMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bookSlot) {
-//            frame.setVisible(false);
+            frame.setVisible(false);
             this.launchBookSlot();
         } else if (e.getSource() == cancelBooking) {
             this.launchCancelSlot();
@@ -254,19 +258,19 @@ public class MainMenu extends JFrame implements ActionListener {
             frame.setVisible(false);
             System.exit(0);
         } else {
-//            frame.setVisible(false);
-//            JButton button = (JButton) e.getSource();
-//            String timeSlot = button.getText();
-//            int selectedSlotIndex = Integer.parseInt(timeSlot.substring(0, timeSlot.indexOf(".")));
-//            selectedSlot = timeSlots.get(selectedSlotIndex - 1);
-//            racerName = this.pullRacerName();
-//            if (selectedSlot.bookSlot(racerName)) {
-//                this.launchManageBooking();
-//                popup("Booking Completed!", "Success");
-//            } else {
-//                popup("Slot is already full. Please select another slot.", "Failed");
-//                System.out.println("Slot is already full. Please select another slot.");
-//            }
+            frame.setVisible(false);
+            JButton button = (JButton) e.getSource();
+            String timeSlot = button.getText();
+            int selectedSlotIndex = Integer.parseInt(timeSlot.substring(0, timeSlot.indexOf(".")));
+            selectedSlot = timeSlots.get(selectedSlotIndex - 1);
+            racerName = this.pullRacerName();
+            if (selectedSlot.bookSlot(racerName)) {
+                this.launchManageBooking();
+                popup("Booking Completed!", "Success");
+            } else {
+                popup("Slot is already full. Please select another slot.", "Failed");
+                System.out.println("Slot is already full. Please select another slot.");
+            }
             //JOptionPane.showMessageDialog(frame, "You clicked " + selectedSlotIndex);
         }
     }
