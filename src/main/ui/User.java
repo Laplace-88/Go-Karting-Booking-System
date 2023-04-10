@@ -77,7 +77,6 @@ public class User extends JFrame implements ActionListener {
         try (FileWriter fileWriter = new FileWriter("loginData.json")) {
             fileWriter.write(jsonArray.toString(2));
         } catch (IOException e) {
-            System.out.println("Error exporting data to loginData.json");
             e.printStackTrace();
         }
     }

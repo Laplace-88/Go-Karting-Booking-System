@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.TimeSlot;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,7 +31,9 @@ public class MainMenu extends JFrame implements ActionListener {
     private final JPanel manageBookingPanel;
     private final JButton bookSlot;
     private final JButton cancelBooking;
+    private final JButton logButton;
     private final JButton saveButton;
+    private final JButton backButton;
     private final JButton loadButton;
     private final JButton quit;
     private String racerName;
@@ -50,7 +54,9 @@ public class MainMenu extends JFrame implements ActionListener {
         frame.setSize(500, 500);
         manageBookingPanel = new JPanel(new FlowLayout());
         bookSlot = new JButton("Book a Slot");
+        backButton = new JButton("Back");
         cancelBooking = new JButton("Cancel a Booking");
+        logButton = new JButton("Logs");
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
         quit = new JButton("Quit");
@@ -81,8 +87,7 @@ public class MainMenu extends JFrame implements ActionListener {
         frame.repaint();
     }
 
-
-    // MODIFIES: this, frame, bookSlot, cancelBooking, saveButton, loadButton, quit, enterRacerText, submitButton
+        // MODIFIES: this, frame, bookSlot, cancelBooking, saveButton, loadButton, quit, enterRacerText, submitButton
     // EFFECTS: Sets up the layout of the main menu.
     public void layout() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,6 +97,9 @@ public class MainMenu extends JFrame implements ActionListener {
         manageBookingPanel.add(cancelBooking);
         cancelBooking.setPreferredSize(new Dimension(150, 25));
         cancelBooking.addActionListener(this);
+        manageBookingPanel.add(logButton);
+        logButton.setPreferredSize(new Dimension(150, 25));
+        logButton.addActionListener(this);
         manageBookingPanel.add(saveButton);
         saveButton.setPreferredSize(new Dimension(150, 25));
         saveButton.addActionListener(this);
@@ -108,7 +116,10 @@ public class MainMenu extends JFrame implements ActionListener {
     // EFFECTS: Switches to the manage booking panel.
     public void launchManageBooking() {
         frame.remove(makeBookingPanel);
-        frame.add(manageBookingPanel);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(manageBookingPanel);
+        frame.revalidate();
+        frame.repaint();
         frame.setVisible(true);
     }
 
@@ -137,17 +148,13 @@ public class MainMenu extends JFrame implements ActionListener {
     public void launchCancelSlot() {
         String racerName = JOptionPane.showInputDialog(frame,
                 "Enter the name of the racer whose booking you want to cancel:");
-
         boolean foundSlot = false;
         for (TimeSlot slot : timeSlots) {
-            if (slot.getBookedRacers().contains(racerName)) {
-                slot.getBookedRacers().remove(racerName);
-                foundSlot = true;
+            if (slot.cancelSlot(racerName)) {
                 JOptionPane.showMessageDialog(frame, "Booking for " + racerName + " has been cancelled.");
-                break;
+                foundSlot = true;
             }
         }
-
         if (!foundSlot) {
             JOptionPane.showMessageDialog(frame, "No booking was found for " + racerName + ".");
         }
@@ -215,8 +222,6 @@ public class MainMenu extends JFrame implements ActionListener {
                 timeSlots.add(slot);
             }
         }
-        // TODO
-        // buildSlotPage();
     }
 
     // REQUIRES: The source file must exist.
@@ -240,6 +245,31 @@ public class MainMenu extends JFrame implements ActionListener {
         dialog.setVisible(true);
     }
 
+    public void logs() {
+        JTextArea logTextArea = new JTextArea();
+        logTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(logTextArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(400, 400));
+        logTextArea.append("Event Logs: \n\n");
+        for (Event e : EventLog.getInstance().getEventLog()) {
+            logTextArea.append(e.getDescription() + " at " + e.getTimeStamp() + "\n");
+        }
+        JPanel logPanel = new JPanel();
+        logPanel.add(scrollPane);
+        backButton.addActionListener(this);
+        logPanel.add(backButton);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(logPanel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void displayLogs() {
+        logs();
+    }
+
+
     @SuppressWarnings("methodlength")
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -254,24 +284,28 @@ public class MainMenu extends JFrame implements ActionListener {
         } else if (e.getSource() == loadButton) {
             loadBookingInfo();
             popup("Load Successful!", "Success");
-        } else if (e.getSource() == quit) {
+        } else if (e.getSource() == logButton) {
+            this.displayLogs();
+        } else if (e.getSource() == backButton) {
             frame.setVisible(false);
-            System.exit(0);
+            this.launchManageBooking();
         } else {
             frame.setVisible(false);
-            JButton button = (JButton) e.getSource();
-            String timeSlot = button.getText();
-            int selectedSlotIndex = Integer.parseInt(timeSlot.substring(0, timeSlot.indexOf(".")));
-            selectedSlot = timeSlots.get(selectedSlotIndex - 1);
-            racerName = this.pullRacerName();
-            if (selectedSlot.bookSlot(racerName)) {
-                this.launchManageBooking();
-                popup("Booking Completed!", "Success");
+            if (e.getSource() == quit) {
+                System.exit(0);
             } else {
-                popup("Slot is already full. Please select another slot.", "Failed");
-                System.out.println("Slot is already full. Please select another slot.");
+                JButton button = (JButton) e.getSource();
+                String timeSlot = button.getText();
+                int selectedSlotIndex = Integer.parseInt(timeSlot.substring(0, timeSlot.indexOf(".")));
+                selectedSlot = timeSlots.get(selectedSlotIndex - 1);
+                racerName = this.pullRacerName();
+                if (selectedSlot.bookSlot(racerName)) {
+                    this.launchManageBooking();
+                    popup("Booking Completed!", "Success");
+                } else {
+                    popup("Slot is already full. Please select another slot.", "Failed");
+                }
             }
-            //JOptionPane.showMessageDialog(frame, "You clicked " + selectedSlotIndex);
         }
     }
 }

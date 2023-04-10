@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- This class represents a time slot for go-kart racing.
- It contains information about the start and end times of the slot,
- the capacity of the slot, and the list of racers who have booked the slot.
+ * This class represents a time slot for go-kart racing.
+ * It contains information about the start and end times of the slot,
+ * the capacity of the slot, and the list of racers who have booked the slot.
  */
 
 public class TimeSlot {
@@ -52,6 +52,17 @@ public class TimeSlot {
     public boolean bookSlot(String racerName) {
         if (isAvailable()) {
             bookedRacers.add(racerName);
+            EventLog.getInstance().logEvent(new Event("Time Slot Booked, Racer: " + racerName + ", Slot: " + this.toString()));
+            return true;
+        }
+        EventLog.getInstance().logEvent(new Event("Booking Unsuccessful: Slot is full."));
+        return false;
+    }
+
+    public boolean cancelSlot(String racerName) {
+        if (this.getBookedRacers().contains(racerName)) {
+            this.getBookedRacers().remove(racerName);
+            EventLog.getInstance().logEvent(new Event("Booking cancelled for Racer:" + racerName));
             return true;
         }
         return false;
