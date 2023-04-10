@@ -13,7 +13,7 @@ public class EventLogTest {
 
     @BeforeEach
     public void setUp() {
-        eventLog = EventLog.getInstance();
+        eventLog = new EventLog();
     }
 
     @Test
@@ -44,7 +44,7 @@ public class EventLogTest {
         for (Event event : eventLog) {
             count++;
         }
-        assertEquals(4, count);
+        assertEquals(3, count);
     }
 
 

@@ -64,6 +64,15 @@ public class TimeSlotTest {
     }
 
     @Test
+    void testCancelSlot() {
+        slot.bookSlot("Racer1");
+        assertTrue(slot.cancelSlot("Racer1"));
+        assertEquals(0, slot.getBookedRacers().size());
+        assertFalse(slot.getBookedRacers().contains("Racer1"));
+        assertFalse(slot.cancelSlot("Racer2"));
+    }
+
+    @Test
     public void testGetCapacity() {
         assertEquals(2, slot.getCapacity());
         slot.bookSlot("Racer1");
