@@ -1,13 +1,21 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EventTest {
+
+    private Event event;
+
+    @BeforeEach
+    public void setUp() {
+        event = new Event("test");
+    }
 
     @Test
     public void testGetDescription() {
@@ -25,8 +33,19 @@ public class EventTest {
 
     @Test
     public void testEquals() {
-        Event event = new Event("Test event description");
-        assertEquals(event, event);
+        TimeSlot slot = new TimeSlot(LocalTime.of(12, 0),5);
+        Event event3 = new Event("other");
+        assertFalse(event.equals(slot));
+        assertTrue(event.equals(event));
+        assertNotEquals(event, event3);
+        assertFalse(event.equals(null));
+    }
+
+    @Test
+    public void testHashCode() {
+        Event event3 = new Event("other");
+
+        assertNotEquals(event.hashCode(), event3.hashCode());
     }
 
     @Test

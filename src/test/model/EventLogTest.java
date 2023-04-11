@@ -1,52 +1,54 @@
 package model;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * Unit tests for the EventLog class
+ */
 public class EventLogTest {
-
-    private EventLog eventLog;
+    private Event event1;
+    private Event event2;
+    private Event event3;
 
     @BeforeEach
-    public void setUp() {
-        eventLog = new EventLog();
+    public void loadEvents() {
+        event1 = new Event("Event 1");
+        event2 = new Event("Event 2");
+        event3 = new Event("Event 3");
+        EventLog el = EventLog.getInstance();
+        el.logEvent(event1);
+        el.logEvent(event2);
+        el.logEvent(event3);
     }
 
     @Test
     public void testLogEvent() {
-        Event event = new Event("Test Event");
-        eventLog.logEvent(event);
-        List<Event> events = eventLog.getEventLog();
-        assertEquals(1, events.size());
-        assertEquals(event, events.get(0));
+        List<Event> l = new ArrayList<Event>();
+
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            l.add(next);
+        }
+
+        assertTrue(l.contains(event1));
+        assertTrue(l.contains(event2));
+        assertTrue(l.contains(event3));
     }
 
     @Test
     public void testClear() {
-        eventLog.logEvent(new Event("Test Event 1"));
-        eventLog.logEvent(new Event("Test Event 2"));
-        eventLog.clear();
-        List<Event> events = eventLog.getEventLog();
-        assertEquals(1, events.size()); // should be 1, not 0
-        assertEquals("Event log cleared.", events.get(0).getDescription());
+        EventLog el = EventLog.getInstance();
+        el.clear();
+        Iterator<Event> itr = el.iterator();
+        assertTrue(itr.hasNext());   // After log is cleared, the clear log event is added
+        assertEquals("Event log cleared.", itr.next().getDescription());
+        assertFalse(itr.hasNext());
     }
-
-    @Test
-    public void testIterator() {
-        eventLog.logEvent(new Event("Test Event 1"));
-        eventLog.logEvent(new Event("Test Event 2"));
-        eventLog.logEvent(new Event("Test Event 3"));
-        int count = 0;
-        for (Event event : eventLog) {
-            count++;
-        }
-        assertEquals(3, count);
-    }
-
-
 }
-

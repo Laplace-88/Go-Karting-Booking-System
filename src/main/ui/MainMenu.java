@@ -64,7 +64,6 @@ public class MainMenu extends JFrame implements ActionListener {
         layout();
     }
 
-    // TODO
     // MODIFIES: this, makeBookingPanel, times, slotTime
     // EFFECTS: Builds the booking panel by adding buttons for each available time slot.
     public void buildSlotPage() {
@@ -87,7 +86,7 @@ public class MainMenu extends JFrame implements ActionListener {
         frame.repaint();
     }
 
-        // MODIFIES: this, frame, bookSlot, cancelBooking, saveButton, loadButton, quit, enterRacerText, submitButton
+    // MODIFIES: this, frame, bookSlot, cancelBooking, saveButton, loadButton, quit, enterRacerText, submitButton
     // EFFECTS: Sets up the layout of the main menu.
     public void layout() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -236,6 +235,7 @@ public class MainMenu extends JFrame implements ActionListener {
         return contentBuilder.toString();
     }
 
+    // EFFECTS: Gives a popup to the user
     public void popup(String message, String title) {
         JOptionPane pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
         final JDialog dialog = pane.createDialog(null, title);
@@ -245,6 +245,8 @@ public class MainMenu extends JFrame implements ActionListener {
         dialog.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Shows the user all the event logs up-until then
     public void logs() {
         JTextArea logTextArea = new JTextArea();
         logTextArea.setEditable(false);
@@ -252,7 +254,7 @@ public class MainMenu extends JFrame implements ActionListener {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(400, 400));
         logTextArea.append("Event Logs: \n\n");
-        for (Event e : EventLog.getInstance().getEventLog()) {
+        for (Event e : EventLog.getInstance()) {
             logTextArea.append(e.getDescription() + " at " + e.getTimeStamp() + "\n");
         }
         JPanel logPanel = new JPanel();
@@ -264,11 +266,6 @@ public class MainMenu extends JFrame implements ActionListener {
         frame.revalidate();
         frame.repaint();
     }
-
-    public void displayLogs() {
-        logs();
-    }
-
 
     @SuppressWarnings("methodlength")
     @Override
@@ -285,13 +282,16 @@ public class MainMenu extends JFrame implements ActionListener {
             loadBookingInfo();
             popup("Load Successful!", "Success");
         } else if (e.getSource() == logButton) {
-            this.displayLogs();
+            this.logs();
         } else if (e.getSource() == backButton) {
             frame.setVisible(false);
             this.launchManageBooking();
         } else {
             frame.setVisible(false);
             if (e.getSource() == quit) {
+                for (Event event : EventLog.getInstance()) {
+                    System.out.println(event.toString());
+                }
                 System.exit(0);
             } else {
                 JButton button = (JButton) e.getSource();
