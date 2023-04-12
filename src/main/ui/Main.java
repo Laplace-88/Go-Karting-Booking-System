@@ -1,7 +1,7 @@
 package ui;
 
 /**
- This class represents the main entry point for the Gokarting Booking System application.
+ This class represents the main entry point for the Go-Karting Booking System application.
  */
 
 public class Main {

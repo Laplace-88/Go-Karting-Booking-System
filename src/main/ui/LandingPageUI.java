@@ -17,8 +17,8 @@ public class LandingPageUI extends JPanel implements ActionListener {
 
     private static JFrame frame;
     private static JPanel panel;
-    private static JButton signup;
-    private static JButton signin;
+    private static JButton signUp;
+    private static JButton signIn;
     private static ImageIcon imageIcon;
 
     // Constructor
@@ -49,10 +49,10 @@ public class LandingPageUI extends JPanel implements ActionListener {
     //Adds the JButton object to the JPanel object
     //Adds an ActionListener to the JButton object to listen for click events
     private void signIn() {
-        signin = new JButton("Sign in");
-        signin.setBounds(460, 550, 80, 25);
-        panel.add(signin);
-        signin.addActionListener(new LandingPageUI());
+        signIn = new JButton("Sign in");
+        signIn.setBounds(460, 550, 80, 25);
+        panel.add(signIn);
+        signIn.addActionListener(new LandingPageUI());
     }
 
     // MODIFIES: JButton signup,JPanel panel
@@ -61,10 +61,10 @@ public class LandingPageUI extends JPanel implements ActionListener {
     //Adds the JButton object to the JPanel object
     //Adds an ActionListener to the JButton object to listen for click events
     private void createAccount() {
-        signup = new JButton("Create a new account");
-        signup.setBounds(350, 580, 300, 25);
-        panel.add(signup);
-        signup.addActionListener(new LandingPageUI());
+        signUp = new JButton("Create a new account");
+        signUp.setBounds(350, 580, 300, 25);
+        panel.add(signUp);
+        signUp.addActionListener(new LandingPageUI());
     }
 
     // MODIFIES: JFrame frame
@@ -76,7 +76,7 @@ public class LandingPageUI extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         User account = new User();
-        if (e.getSource() == signin) {
+        if (e.getSource() == signIn) {
             frame.setVisible(false);
             account.logIn();
         } else {

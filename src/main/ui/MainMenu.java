@@ -24,7 +24,7 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private List<TimeSlot> timeSlots;
 
-    private ArrayList<JButton> times;
+    private final ArrayList<JButton> times;
     private JButton slotTime;
     private JPanel makeBookingPanel;
     private final JFrame frame;

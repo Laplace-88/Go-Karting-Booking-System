@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
-    Represents a Go-Karting System Event
+ * Represents a Go-Karting System Event
  */
 public class Event {
     private final String description;
@@ -30,12 +30,14 @@ public class Event {
     // EFFECTS: returns true if this object is the same as the other object, false otherwise
     @Override
     public boolean equals(Object other) {
-        if (other == null || getClass() != other.getClass())
+        if (other == null || getClass() != other.getClass()) {
             return false;
+        }
 
         Event otherEvent = (Event) other;
 
-        return this.timestamp.equals(otherEvent.timestamp) &&
+        return this.timestamp.equals(otherEvent.timestamp)
+                &&
                 this.description.equals(otherEvent.description);
     }
 

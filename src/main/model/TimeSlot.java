@@ -52,7 +52,8 @@ public class TimeSlot {
     public boolean bookSlot(String racerName) {
         if (isAvailable()) {
             bookedRacers.add(racerName);
-            EventLog.getInstance().logEvent(new Event("Time Slot Booked, Racer: " + racerName + ", Slot: " + this.toString()));
+            EventLog.getInstance().logEvent(new Event("Time Slot Booked, Racer: " + racerName + ", Slot: "
+                    + this.toString()));
             return true;
         }
         EventLog.getInstance().logEvent(new Event("Booking Unsuccessful: Slot is full."));
