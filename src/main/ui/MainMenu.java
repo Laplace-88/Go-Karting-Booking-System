@@ -255,7 +255,7 @@ public class MainMenu extends JFrame implements ActionListener {
         scrollPane.setPreferredSize(new Dimension(400, 400));
         logTextArea.append("Event Logs: \n\n");
         for (Event e : EventLog.getInstance()) {
-            logTextArea.append(e.getDescription() + " at " + e.getTimeStamp() + "\n");
+            logTextArea.append(e.getDescription() + " at " + e.getTimeStamp() + "\n\n");
         }
         JPanel logPanel = new JPanel();
         logPanel.add(scrollPane);
@@ -290,7 +290,7 @@ public class MainMenu extends JFrame implements ActionListener {
             frame.setVisible(false);
             if (e.getSource() == quit) {
                 for (Event event : EventLog.getInstance()) {
-                    System.out.println(event.toString());
+                    System.out.println(event.toString() + "\n");
                 }
                 System.exit(0);
             } else {

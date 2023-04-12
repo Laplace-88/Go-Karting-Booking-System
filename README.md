@@ -44,3 +44,29 @@ book the time slot you prefer, and then you call them back to cancel it and so o
 * You can locate my visual component by launching the landing page.
 * You can save the state of my application by clicking on Save in Main Menu.
 * You can reload the state of my application by clicking on Load in Main Menu.
+
+<h4>Phase 4: Task 2</h4>
+
+2023-04-11T16:36:56.242590
+Time Slot Booked, Racer: Gregor, Slot: 13:30 - 14:00
+
+2023-04-11T16:37:43.589810
+Time Slot Booked, Racer: Steven, Slot: 14:00 - 14:30
+
+2023-04-11T16:37:50.773791
+ Booking cancelled for Racer:Gregor
+
+<h4>Phase 4: Task 3</h4>
+
+* I'm not super proud of the current design of my program and to be very honest, I just want to scrap it and do it all over again.
+Over the course of doing this project, I learnt a lot of new things and some of which I couldn't implement because I had already
+done that using a different method, which may not be as efficient or as clean. But overall, this project was one thing I was having
+fun with the entire term, I was always thinking of how to improve it and what other functionalities I could add.
+* That brings us on to what all I had thought of doing but couldn't do because of the time constraint:
+* I could have added functionalities like Forget Password security questions, Being able to select dates for the booking, maybe some feel-good features, etc.
+* As far as refactoring is concerned, I could have refactored the following:
+* Helper methods: There are several methods in this code that do more than one thing. To make the code easier to read and understand, 
+I could extract some of the functionality into separate methods. For example, I could extract the code that sets up the layout of the main menu into a separate method.
+* Reduce coupling: The MainMenu class has too many responsibilities. To reduce coupling and make the code easier to maintain, 
+I could extract some of the responsibilities into separate classes.
+* 
